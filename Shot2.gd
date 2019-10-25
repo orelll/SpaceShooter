@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Area2D
 
 var speed = 600;
 export var startRotation = Vector2()
@@ -20,3 +20,12 @@ func _physics_process(delta):
 	if position.x > screen_size.x or position.y > screen_size.y or position.x < -screen_size.x or position.y  < -screen_size.y:
 		$AnimatedSprite.play("explosion")
 		get_parent().remove_child(self)
+
+func _on_Shot2_area_entered(area):
+	if area.get_name() == 'Obstacle':
+		velocity = Vector2(0,0)
+		$AnimatedSprite.play("explosion")
+		yield($AnimatedSprite, "animation_finished" )
+		get_parent().remove_child(self)
+		
+	pass # Replace with function body.

@@ -37,12 +37,9 @@ func get_input():
 		pressed = 1
 		rotation_dir -= 0.1
 	if Input.is_action_just_pressed('ui_accept') && readyToShot == 1:
-		print('space pressed')
 		shot()
 		readyToShot = 0
 	if Input.is_action_just_released('ui_accept'):
-		print('space released')
-		shot()
 		readyToShot = 1
 	if pressed == 0:
 		if rotation > 0:
@@ -61,7 +58,7 @@ func _physics_process(delta):
 # input event - runs when the input happens
 func shot():
 	var root = get_tree().get_root()
-	var found = load("res://Shot.tscn")
+	var found = load("res://Shot2.tscn")
 	var shotDuplicate = found.instance()
 	shotDuplicate.position = position
 	shotDuplicate.rotation = rotation
