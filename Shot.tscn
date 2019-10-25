@@ -1,0 +1,49 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Shot.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Shots/shot1_2.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Shots/shot1_3.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Shots/shot1_4.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Shots/shot1_asset.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Shots/shot1_exp0.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Shots/shot1_exp1.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Shots/shot1_exp2.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Shots/shot1_exp3.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Shots/shot1_exp4.png" type="Texture" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "explosion",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 3.41675
+height = 8.26906
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Shot" type="KinematicBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Shot"]
+position = Vector2( 0, -0.149889 )
+frames = SubResource( 1 )
+animation = "explosion"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shot"]
+position = Vector2( -7.49451, 0.449673 )
+rotation = 1.5708
+shape = SubResource( 2 )
