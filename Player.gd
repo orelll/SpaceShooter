@@ -36,31 +36,8 @@ func get_input():
 	if Input.is_action_pressed('ui_left'):
 		pressed = 1
 		rotation_dir -= 0.1
-	if Input.is_action_just_pressed('ui_accept') && readyToShot == 1:
-		shot()
-		readyToShot = 0
-	if Input.is_action_just_released('ui_accept'):
-		readyToShot = 1
-	if pressed == 0:
-		if rotation > 0:
-			rotation_dir -= 0.1
-		if rotation_dir < 0:
-			rotation_dir += 0.1
-		
 	
 func _physics_process(delta):
 	get_input()
 	rotation += rotation_dir * rotation_speed * delta
 	velocity = move_and_slide(velocity)
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
-	
-# input event - runs when the input happens
-func shot():
-	var root = get_tree().get_root()
-	var found = load("res://Shot2.tscn")
-	var shotDuplicate = found.instance()
-	shotDuplicate.position = position
-	shotDuplicate.rotation = rotation
-	root.add_child(shotDuplicate)
-	shotDuplicate.show()
