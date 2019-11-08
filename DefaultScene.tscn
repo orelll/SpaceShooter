@@ -1,9 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Ships/ship_188.png" type="Texture" id=2]
-[ext_resource path="res://Obstacle.gd" type="Script" id=3]
-[ext_resource path="res://icon.png" type="Texture" id=4]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -16,17 +14,6 @@ animations = [ {
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 68.2774
 height = 34.4258
-
-[sub_resource type="SpriteFrames" id=3]
-animations = [ {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
-
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 31.2911, 30.883 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -41,17 +28,3 @@ frames = SubResource( 1 )
 position = Vector2( -15.4327, -1.71477 )
 rotation = -1.59942
 shape = SubResource( 2 )
-
-[node name="Obstacle" type="Area2D" parent="."]
-collision_layer = 3
-collision_mask = 3
-script = ExtResource( 3 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Obstacle"]
-position = Vector2( 601.431, 297.852 )
-frames = SubResource( 3 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle"]
-position = Vector2( 602.048, 297.676 )
-shape = SubResource( 4 )
-[connection signal="area_entered" from="Obstacle" to="Obstacle" method="_on_Obstacle_area_entered"]
