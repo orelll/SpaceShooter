@@ -37,6 +37,12 @@ func get_input():
 		pressed = 1
 		rotation_dir -= 0.1
 	
+	if pressed == 0:
+		if rotation_dir > 0:
+			rotation_dir -= 0.1
+		if rotation_dir < 0:
+			rotation_dir += 0.1
+	
 func _physics_process(delta):
 	get_input()
 	rotation += rotation_dir * rotation_speed * delta
