@@ -11,6 +11,7 @@
 [ext_resource path="res://Assets/Shots/shot1_exp3.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Shots/shot1_exp4.png" type="Texture" id=10]
 
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
@@ -25,27 +26,23 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 3.41675
-height = 8.26906
+radius = 2.38885
+height = 4.9119
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Shot" type="KinematicBody2D" parent="."]
-position = Vector2( 0.149889, 0 )
-scale = Vector2( 2.5, 2.5 )
+[node name="Shot2" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Shot"]
-position = Vector2( 0, -0.149889 )
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Shot2"]
 frames = SubResource( 1 )
 animation = "explosion"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shot"]
-position = Vector2( -7.49451, 0.449673 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shot2"]
+position = Vector2( 5.41959, 0 )
 rotation = 1.5708
+scale = Vector2( 2.5, 2.5 )
 shape = SubResource( 2 )
+[connection signal="area_entered" from="Shot2" to="Shot2" method="_on_Shot2_area_entered"]

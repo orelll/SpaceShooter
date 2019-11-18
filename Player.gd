@@ -58,9 +58,12 @@ func _physics_process(delta):
 # input event - runs when the input happens
 func shot():
 	var root = get_tree().get_root()
-	var found = load("res://Shot2.tscn")
+	var found = load("res://Shot.tscn")
 	var shotDuplicate = found.instance()
 	shotDuplicate.position = position
 	shotDuplicate.rotation = rotation
 	root.add_child(shotDuplicate)
 	shotDuplicate.show()
+
+func _on_Obstacle_area_entered(area):
+	pass # Replace with function body.
