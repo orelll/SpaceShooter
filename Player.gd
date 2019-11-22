@@ -17,7 +17,6 @@ func _ready():
 	hide()
 	var pos = Vector2(screen_size.x / 2, screen_size.y / 2)
 	start(pos)
-	spawn_target()
 	
 func start(pos):
     position = pos
@@ -67,23 +66,3 @@ func shot():
 	shotDuplicate.rotation = rotation
 	root.add_child(shotDuplicate)
 	shotDuplicate.show()
-
-func spawn_target():
-	var target_position_X = rng.randi_range(-screen_size.x, screen_size.x)
-	var target_position_Y = rng.randi_range(-screen_size.y, screen_size.y)
-	
-	target_position_X= clamp(target_position_X, 0, screen_size.x)
-	target_position_Y= clamp(target_position_Y, 0, screen_size.y)
-		
-	var root = get_tree().get_root()
-	
-	var targetPrefab = load("res://target.tscn")
-	var targetInstance = targetPrefab.instance()
-	targetInstance.position = Vector2(target_position_X, target_position_Y)
-	
-	root.call_deferred("add_child",targetInstance) 
-	targetInstance.show()
-	print('target spawned at' + str(targetInstance.position))
-
-func _on_Obstacle_area_entered(area):
-	print('its hit')
