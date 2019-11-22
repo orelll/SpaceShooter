@@ -1,19 +1,23 @@
 extends KinematicBody2D
 
 signal hit
+var root
 export var speed = 400
 export (float) var rotation_speed = 1
 var screen_size
 var velocity = Vector2()
 var rotation_dir = 0
 var readyToShot = 1
+var rng = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport().size
+	root = get_tree().get_root()
 	hide()
 	var pos = Vector2(screen_size.x / 2, screen_size.y / 2)
 	start(pos)
+	spawn_target()
 	
 func start(pos):
     position = pos
@@ -57,7 +61,6 @@ func _physics_process(delta):
 	
 # input event - runs when the input happens
 func shot():
-	var root = get_tree().get_root()
 	var found = load("res://Shot.tscn")
 	var shotDuplicate = found.instance()
 	shotDuplicate.position = position
@@ -65,5 +68,22 @@ func shot():
 	root.add_child(shotDuplicate)
 	shotDuplicate.show()
 
+func spawn_target():
+	var target_position_X = rng.randi_range(-screen_size.x, screen_size.x)
+	var target_position_Y = rng.randi_range(-screen_size.y, screen_size.y)
+	
+	target_position_X= clamp(target_position_X, 0, screen_size.x)
+	target_position_Y= clamp(target_position_Y, 0, screen_size.y)
+		
+	var root = get_tree().get_root()
+	
+	var targetPrefab = load("res://target.tscn")
+	var targetInstance = targetPrefab.instance()
+	targetInstance.position = Vector2(target_position_X, target_position_Y)
+	
+	root.call_deferred("add_child",targetInstance) 
+	targetInstance.show()
+	print('target spawned at' + str(targetInstance.position))
+
 func _on_Obstacle_area_entered(area):
-	pass # Replace with function body.
+	print('its hit')
