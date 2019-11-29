@@ -17,7 +17,8 @@ func _physics_process(delta):
 	position += velocity * delta
 	if position.x > screen_size.x or position.y > screen_size.y or position.x < -screen_size.x or position.y  < -screen_size.y:
 		$AnimatedSprite.play("explosion")
-		get_parent().remove_child(self)
+		yield($AnimatedSprite, "animation_finished" )
+		queue_free()
 
 func _on_Shot2_area_entered(area):
 	if area.get_name() == 'target':
