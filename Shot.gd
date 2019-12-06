@@ -1,47 +1,37 @@
-extends Area2D
+extends KinematicBody2D
 
-var speed = 600;
 export var startRotation = Vector2()
-var velocity = Vector2(-speed, 0).rotated(rotation)
+export var damage = 10
+signal hit
+var speed = 700;
+var velocity
 var screen_size
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	screen_size = get_tree().root.size#get_viewport().size
+	rotation = get_parent().rotation
+	screen_size = get_tree().root.size
 	$AnimatedSprite.play("default")
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+	velocity = Vector2(cos(rotation) * -speed, sin(rotation) * -speed).rotated(rotation)
+	print('rotation: ' + str(rotation))
+	print('velocity: ' + str(velocity))
 
 func _physics_process(delta):
-	position += velocity * delta
-	if position.x > screen_size.x or position.y > screen_size.y or position.x < -screen_size.x or position.y  < -screen_size.y:
+	if position.x >= screen_size.x or position.y >= screen_size.y or position.x <= -screen_size.x or position.y  <= -screen_size.y:
+		velocity = Vector2(0,0)
 		$AnimatedSprite.play("explosion")
 		yield($AnimatedSprite, "animation_finished" )
-		queue_free()
+		get_parent().queue_free()
+	else:
+		
+		var collision = move_and_collide(velocity*delta)
+		if collision != null:
+			hitSomething(collision.collider)
 
-func _on_Shot2_area_entered(area):
+func hitSomething(area):
+	print(area.name)
 	if area.get_name() == 'target':
 		velocity = Vector2(0,0)
 		$AnimatedSprite.play("explosion")
 		yield($AnimatedSprite, "animation_finished" )
-		var target = find_node_by_name(get_tree().get_root(), "target")
-		find_node_by_name(get_tree().get_root(), 'root').call_deferred("remove_child",target) 
+		get_parent().queue_free()
 		
-		var player = find_node_by_name(get_tree().get_root(), "Player")
-		player.spawn_target()
-		get_parent().remove_child(self)
-
-func find_node_by_name(root, name):
-
-    if(root.get_name() == name): return root
-
-    for child in root.get_children():
-        if(child.get_name() == name):
-            return child
-
-        var found = find_node_by_name(child, name)
-
-        if(found): return found
-
-    return null

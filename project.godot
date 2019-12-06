@@ -19,6 +19,13 @@ config/name="SpaceShooter"
 run/main_scene="res://Player.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/height=1024
+window/size/resizable=false
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

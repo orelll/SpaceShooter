@@ -26,7 +26,7 @@ func start(pos):
 	
 func get_input():
 	var pressed = 0
-    # Detect up/down/left/right keystate and only move when pressed.
+    
 	velocity = Vector2()
 	if Input.is_action_pressed('ui_down'):
 		pressed = 1
@@ -53,9 +53,11 @@ func get_input():
 		
 	
 func _physics_process(delta):
+	screen_size = get_viewport().size
 	get_input()
 	rotation += rotation_dir * rotation_speed * delta
 	velocity = move_and_slide(velocity)
+	
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
 	
@@ -65,25 +67,23 @@ func shot():
 	var shotDuplicate = found.instance()
 	shotDuplicate.position = position
 	shotDuplicate.rotation = rotation
+	print('setting rotation: ' + str(rotation))
 	root.add_child(shotDuplicate)
 	shotDuplicate.show()
 
 func spawn_target():
-	var target_position_X = rng.randi_range(-screen_size.x, screen_size.x)
-	var target_position_Y = rng.randi_range(-screen_size.y, screen_size.y)
+	var target_position_X = rng.randi_range(0, 500)
+	var target_position_Y = rng.randi_range(0, 500)
 	
 	target_position_X= clamp(target_position_X, 0, screen_size.x)
 	target_position_Y= clamp(target_position_Y, 0, screen_size.y)
-		
 	var root = get_tree().get_root()
-	
+		
 	var targetPrefab = load("res://target.tscn")
 	var targetInstance = targetPrefab.instance()
 	targetInstance.position = Vector2(target_position_X, target_position_Y)
 	
 	root.call_deferred("add_child",targetInstance) 
 	targetInstance.show()
-	print('target spawned at' + str(targetInstance.position))
+	print(str(targetInstance.position))
 
-func _on_Obstacle_area_entered(area):
-	print('its hit')
