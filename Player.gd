@@ -61,13 +61,11 @@ func _physics_process(delta):
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
 	
-# input event - runs when the input happens
 func shot():
 	var found = load("res://Shot.tscn")
 	var shotDuplicate = found.instance()
 	shotDuplicate.position = position
 	shotDuplicate.rotation = rotation
-	print('setting rotation: ' + str(rotation))
 	root.add_child(shotDuplicate)
 	shotDuplicate.show()
 

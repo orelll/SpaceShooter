@@ -8,38 +8,37 @@ var angle
 var angleChanged = false
 var direction = Vector2(1,1)
 var screen_size = Vector2(500,500)
-var newX
-var newY
+var velocity = Vector2()
 
 func _ready():
 	$Health.value = 100
-	#screen_size = get_viewport().size
-	newY = rng.randi_range(0, screen_size.x)
-	newX = rng.randi_range(0, screen_size.y)
 	changeAngle()
 	show()
 	$AnimatedSprite.play("default")
 	
 func _physics_process(delta):
-	#screen_size = get_tree().root.size
 	
-	if OS.get_time().second % 10 == 0 and !angleChanged:
+	if OS.get_time().second % 2 == 0 and !angleChanged:
 		changeAngle()
 		angleChanged = true
-	if OS.get_time().second % 10 == 1:
+	if OS.get_time().second % 2 == 1:
 		angleChanged = false
 	
+	ProcessVelocity()
 	
-	newX = (position.x + 1)
-	newY = (position.y + 1)
-	#newX = clamp(newX, 0, screen_size.x)
-	#newY = rng.randi_range(position.y -10, position.y + 10) * movementSpeed * movementSpeedMultiplier
-	#newY = clamp(newX, 0, screen_size.x)
-	var newPosition = Vector2(newX, newY).rotated(angle)# Vector2(0, 0)
+	var checkX = clamp(velocity.x, 0, screen_size.x)
+	var checkY = clamp(velocity.y, 0, screen_size.y)
 	
-	var collision = move_and_collide(newPosition)
-	print('moving to position:' + str(newPosition))	
-	print('current position: ' + str(position))
+	if checkX != velocity.x:
+		direction.x = direction.x * -1
+		ProcessVelocity()
+	
+	if checkY != velocity.y:
+		direction.y = direction.y * -1
+		ProcessVelocity()
+	
+	var collision = move_and_collide(velocity)
+	
 	if collision != null:
 		changeAngle()
 		if collision.collider.name == 'Shot':
@@ -48,12 +47,15 @@ func _physics_process(delta):
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
 
+func ProcessVelocity():
+	velocity = Vector2(sin(angle) * movementSpeed, cos(angle) * movementSpeed).rotated(rotation)
 
 func changeAngle():
 	angle = rng.randi_range(0, 360)
 	print('setting  angle to:' + str(angle))
 
 func GotHit(area):
+	print('hit by ' + str(area.name))
 	if $Health.value > area.damage:
 		$Health.value -= area.damage
 	else:
