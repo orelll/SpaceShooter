@@ -26,12 +26,3 @@ frames = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="target"]
 shape = SubResource( 2 )
-
-[node name="Health" type="ProgressBar" parent="target"]
-margin_left = -31.0
-margin_top = -48.0
-margin_right = 31.0
-margin_bottom = -34.0
-custom_colors/font_color = Color( 0.792157, 0.764706, 0.101961, 1 )
-custom_colors/font_color_shadow = Color( 0.647059, 0.592157, 0.592157, 1 )
-value = 50.0
