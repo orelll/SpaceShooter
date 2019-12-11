@@ -35,3 +35,8 @@ margin_bottom = -34.0
 custom_colors/font_color = Color( 0.792157, 0.764706, 0.101961, 1 )
 custom_colors/font_color_shadow = Color( 0.647059, 0.592157, 0.592157, 1 )
 value = 50.0
+
+[node name="Notifier" type="VisibilityNotifier2D" parent="target"]
+position = Vector2( -0.349845, -8.74607 )
+scale = Vector2( 3.15736, 3.99699 )
+[connection signal="viewport_exited" from="target/Notifier" to="target" method="_on_Notifier_viewport_exited"]

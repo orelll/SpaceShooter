@@ -12,20 +12,13 @@ var rng = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#OS.set_window_maximized(true)
-	OS.window_size = Vector2(1400,1050)
-	print('viewport size: ' + str(get_viewport().size))
-	print('root size: ' + str(get_tree().get_root().size))
+	
 	screen_size = get_viewport().size
 	root = get_tree().get_root().size
 	hide()
 	var pos = Vector2(screen_size.x / 2, screen_size.y / 2)
 	start(pos)
 	spawn_target()
-	get_tree().get_root().connect("size_changed", self, "myfunc")
-
-func myfunc():
-    print("Resizing: ", get_viewport_rect().size)
 	
 func start(pos):
     position = pos
@@ -66,8 +59,8 @@ func _physics_process(delta):
 	rotation += rotation_dir * rotation_speed * delta
 	velocity = move_and_slide(velocity)
 	
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
+#	position.x = clamp(position.x, 0, screen_size.x)
+#	position.y = clamp(position.y, 0, screen_size.y)
 	
 func shot():
 	var found = load("res://Shot.tscn")
@@ -93,13 +86,3 @@ func spawn_target():
 	targetInstance.show()
 	print(str(targetInstance.position))
 
-
-
-func _on_AnimatedSprite_item_rect_changed():
-	print('viewport size: ' + str(get_viewport().size))
-	print('root size: ' + str(get_tree().get_root().size))
-
-
-func _on_Node2D_item_rect_changed():
-	print('viewport size: ' + str(get_viewport().size))
-	print('root size: ' + str(get_tree().get_root().size))

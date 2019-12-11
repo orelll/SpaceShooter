@@ -7,16 +7,28 @@ var rng = RandomNumberGenerator.new()
 var angle 
 var angleChanged = false
 var direction = Vector2(1,1)
-var screen_size = Vector2(500,500)
+var screen_size
 var velocity = Vector2()
 
 func _ready():
+	update_screen_size()
 	$Health.value = 100
 	changeAngle()
 	show()
 	$AnimatedSprite.play("default")
+
+func _on_screen_exited():
+	var player = find_node_by_name(get_tree().get_root(), "Player")
+	direction.x = direction.x * -1
+	direction.y = direction.y * -1
+	print('exited screen! Direction: ' + str(direction))
+
+	
+func update_screen_size():
+	screen_size = get_viewport().size
 	
 func _physics_process(delta):
+	update_screen_size()
 	
 	if OS.get_time().second % 2 == 0 and !angleChanged:
 		changeAngle()
@@ -26,29 +38,16 @@ func _physics_process(delta):
 	
 	ProcessVelocity()
 	
-	var checkX = clamp(velocity.x, 0, screen_size.x)
-	var checkY = clamp(velocity.y, 0, screen_size.y)
-	
-	if checkX != velocity.x:
-		direction.x = direction.x * -1
-		ProcessVelocity()
-	
-	if checkY != velocity.y:
-		direction.y = direction.y * -1
-		ProcessVelocity()
-	
 	var collision = move_and_collide(velocity)
 	
 	if collision != null:
 		changeAngle()
 		if collision.collider.name == 'Shot':
 			GotHit(collision.collider)
-			
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
+
 
 func ProcessVelocity():
-	velocity = Vector2(sin(angle) * movementSpeed, cos(angle) * movementSpeed).rotated(rotation)
+	velocity = Vector2(sin(angle) * movementSpeed * movementSpeedMultiplier * direction.x, cos(angle) * movementSpeed * movementSpeedMultiplier * direction.y).rotated(rotation)
 
 func changeAngle():
 	angle = rng.randi_range(0, 360)
@@ -76,3 +75,6 @@ func find_node_by_name(root, name):
 			return found
 
 	return null
+
+func _on_Notifier_viewport_exited(viewport):
+	_on_screen_exited()

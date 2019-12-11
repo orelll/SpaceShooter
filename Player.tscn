@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Ships/ship_188.png" type="Texture" id=2]
@@ -15,14 +15,6 @@ animations = [ {
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 68.2774
 height = 34.4258
-
-[sub_resource type="SpriteFrames" id=3]
-animations = [ {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
 
 [node name="Node2D" type="Node2D"]
 
@@ -41,10 +33,14 @@ position = Vector2( -15.4327, -1.71477 )
 rotation = -1.59942
 shape = SubResource( 2 )
 
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1920, 1080 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 622.665, 503.991 )
-frames = SubResource( 3 )
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 3 )
+centered = false
