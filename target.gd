@@ -52,7 +52,7 @@ func ProcessVelocity():
 
 func changeAngle():
 	angle = rng.randi_range(0, 360)
-	print('setting  angle to:' + str(angle))
+	
 
 func GotHit(area):
 	print('hit by ' + str(area.name))
