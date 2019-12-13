@@ -69,9 +69,6 @@ position = Vector2( -4.31378, -1.16645 )
 rotation = -1.59942
 shape = SubResource( 1 )
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-current = true
-
 [node name="Body" type="Sprite" parent="Player"]
 position = Vector2( -6.09067, 1.37284 )
 z_index = 1
