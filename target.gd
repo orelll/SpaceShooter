@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 export var movementSpeed = 1
-var movementSpeedMultiplier = 10
+var movementSpeedMultiplier = 2
 
 var rng = RandomNumberGenerator.new()
 var angle 

@@ -1,46 +1,108 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Ships/ship_188.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Background/spaceBackground.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Ships/ship1_body.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Ships/ship1_nose.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Ships/ship1_turbine.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Ships/ship1_detail.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Ships/Exhaust/Normal_flight/Exhaust1/exhaust1.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Ships/Exhaust/Normal_flight/Exhaust1/exhaust2.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Ships/Exhaust/Normal_flight/Exhaust1/exhaust3.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Ships/Exhaust/Normal_flight/Exhaust1/exhaust4.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Ships/Exhaust/Normal_flight/Exhaust3/exhaust1.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Ships/Exhaust/Normal_flight/Exhaust3/exhaust2.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Ships/Exhaust/Normal_flight/Exhaust3/exhaust3.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Ships/Exhaust/Normal_flight/Exhaust3/exhaust4.png" type="Texture" id=13]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 16.0313
+height = 23.3858
+
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
+"frames": [  ],
 "loop": true,
-"name": "default",
+"name": "stop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "move",
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 68.2774
-height = 34.4258
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "stop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "move",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "stop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "move",
+"speed": 5.0
+} ]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" type="KinematicBody2D" parent="."]
+position = Vector2( 4.30185, 1.79243 )
+scale = Vector2( 1.5, 1.5 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Player"]
-position = Vector2( 49.0975, -0.857391 )
-frames = SubResource( 1 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2( -15.4327, -1.71477 )
+[node name="HitBox" type="CollisionShape2D" parent="Player"]
+position = Vector2( -4.31378, -1.16645 )
 rotation = -1.59942
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+[node name="Body" type="Sprite" parent="Player"]
+position = Vector2( -6.09067, 1.37284 )
+z_index = 1
+texture = ExtResource( 2 )
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2( 1920, 1080 )
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+[node name="Nose" type="Sprite" parent="Player"]
+position = Vector2( 18.076, 3.8146 )
 texture = ExtResource( 3 )
-centered = false
+
+[node name="Turbine" type="Sprite" parent="Player"]
+position = Vector2( -24.4584, 1.7064 )
+texture = ExtResource( 4 )
+
+[node name="Detail" type="Sprite" parent="Player"]
+position = Vector2( 1.70639, -5.11921 )
+texture = ExtResource( 5 )
+
+[node name="Exhaust" type="AnimatedSprite" parent="Player"]
+position = Vector2( 37.8479, 4.17775 )
+frames = SubResource( 2 )
+animation = "move"
+
+[node name="UpperMover" type="AnimatedSprite" parent="Player"]
+position = Vector2( -24.0275, -15.049 )
+rotation = 1.5708
+frames = SubResource( 3 )
+animation = "move"
+
+[node name="LowerMover" type="AnimatedSprite" parent="Player"]
+position = Vector2( -23.5328, 13.1904 )
+rotation = 1.5708
+z_index = -1
+frames = SubResource( 4 )
+animation = "move"

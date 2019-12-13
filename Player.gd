@@ -14,33 +14,52 @@ var rng = RandomNumberGenerator.new()
 func _ready():
 	
 	screen_size = get_viewport().size
-	root = get_tree().get_root().size
+	print('window size: ' + str(OS.get_window_size()))
+	print('viewport size: ' + str(get_viewport().size))
+	root = get_tree().get_root()
 	hide()
 	var pos = Vector2(screen_size.x / 2, screen_size.y / 2)
 	start(pos)
+	set_background()
 	spawn_target()
 	
+func set_background():
+	var found = load("res://background.tscn")
+	var backgroundDuplicate = found.instance()
+	print('addind background: ' + str(backgroundDuplicate.name))
+	root.call_deferred("add_child", backgroundDuplicate)
+
 func start(pos):
     position = pos
     show()
-    $CollisionShape2D.disabled = false
+    $HitBox.disabled = false
 	
 func get_input():
 	var pressed = 0
-    
+	
+	$Exhaust.play("stop")
+	$UpperMover.play("stop")
+	$LowerMover.play("stop")
+	
 	velocity = Vector2()
 	if Input.is_action_pressed('ui_down'):
 		pressed = 1
 		velocity = Vector2(speed, 0).rotated(rotation)
+		$Exhaust.play("move")
 	if Input.is_action_pressed('ui_up'):
 		pressed = 1
 		velocity = Vector2(-speed, 0).rotated(rotation)
+		$Exhaust.play("move")
+		
 	if Input.is_action_pressed('ui_right'):
+		$LowerMover.play("move")
 		pressed = 1
 		rotation_dir += 0.1
 	if Input.is_action_pressed('ui_left'):
+		$UpperMover.play("move")
 		pressed = 1
 		rotation_dir -= 0.1
+	
 	if Input.is_action_just_pressed('ui_accept') && readyToShot == 1:
 		shot()
 		readyToShot = 0
@@ -59,10 +78,8 @@ func _physics_process(delta):
 	rotation += rotation_dir * rotation_speed * delta
 	velocity = move_and_slide(velocity)
 	
-#	position.x = clamp(position.x, 0, screen_size.x)
-#	position.y = clamp(position.y, 0, screen_size.y)
-	
 func shot():
+	root = get_tree().get_root()
 	var found = load("res://Shot.tscn")
 	var shotDuplicate = found.instance()
 	shotDuplicate.position = position

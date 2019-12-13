@@ -8,25 +8,25 @@ var velocity
 var screen_size
 
 func _ready():
-	rotation = get_parent().rotation/2
 	screen_size = get_tree().root.size
-	$AnimatedSprite.play("default")
+	rotation = rotation / 2
 	velocity = Vector2(cos(rotation) * -speed, sin(rotation) * -speed).rotated(rotation)
+	
+	$AnimatedSprite.play("start")
+	yield($AnimatedSprite, "animation_finished" )
+	$AnimatedSprite.play("move")
 
 func _physics_process(delta):
-	if position.x >= screen_size.x or position.y >= screen_size.y or position.x <= -screen_size.x or position.y  <= -screen_size.y:
-		$AnimatedSprite.play("explosion")
-		yield($AnimatedSprite, "animation_finished" )
-		get_parent().queue_free()
-	else:
-		var collision = move_and_collide(velocity*delta)
-		if collision != null:
-			hitSomething(collision.collider)
+	var collision = move_and_collide(velocity*delta)
+	if collision != null:
+		hitSomething(collision.collider)
 
 func hitSomething(area):
 	if area.get_name() == 'target':
+		velocity = Vector2(0,0)
 		$AnimatedSprite.play("explosion")
 		yield($AnimatedSprite, "animation_finished" )
-		velocity = Vector2(0,0)
-		get_parent().queue_free()
-		
+		queue_free()
+
+func _on_VisibilityNotifier2D_viewport_exited(viewport):
+	queue_free()
