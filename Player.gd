@@ -91,8 +91,11 @@ func shot():
 	shotDuplicate.show()
 
 func spawn_target():
-	var target_position_X = rng.randi_range(0, 500)
-	var target_position_Y = rng.randi_range(0, 500)
+	var target_position_X = rng.randi_range(100, 250)
+	var target_position_Y = rng.randi_range(100, 250)
+	
+	target_position_X += position.x
+	target_position_Y += position.y
 	
 	target_position_X= clamp(target_position_X, 0, screen_size.x)
 	target_position_Y= clamp(target_position_Y, 0, screen_size.y)
