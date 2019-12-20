@@ -14,8 +14,6 @@ var rng = RandomNumberGenerator.new()
 func _ready():
 	
 	screen_size = get_viewport().size
-	print('window size: ' + str(OS.get_window_size()))
-	print('viewport size: ' + str(get_viewport().size))
 	root = get_tree().get_root()
 	hide()
 	var pos = Vector2(screen_size.x / 2, screen_size.y / 2)
@@ -36,29 +34,34 @@ func start(pos):
 func get_input():
 	var pressed = 0
 	
-	$Exhaust.play("stop")
-	$ExhaustFront.play("stop")
-	$UpperMover.play("stop")
-	$LowerMover.play("stop")
-	
 	velocity = Vector2()
 	if Input.is_action_pressed('ui_down'):
 		pressed = 1
 		velocity = Vector2(speed, 0).rotated(rotation)
 		$ExhaustFront.play("move")
+	else:
+		$ExhaustFront.play("stop")
+		
 	if Input.is_action_pressed('ui_up'):
 		pressed = 1
 		velocity = Vector2(-speed, 0).rotated(rotation)
 		$Exhaust.play("move")
+	else:
+		$Exhaust.play("stop")
 		
 	if Input.is_action_pressed('ui_right'):
 		$LowerMover.play("move")
 		pressed = 1
 		rotation_dir += 0.1
+	else:
+		$LowerMover.play("stop")
+		
 	if Input.is_action_pressed('ui_left'):
 		$UpperMover.play("move")
 		pressed = 1
 		rotation_dir -= 0.1
+	else:
+		$UpperMover.play("stop")
 	
 	if Input.is_action_just_pressed('ui_accept') && readyToShot == 1:
 		shot()
