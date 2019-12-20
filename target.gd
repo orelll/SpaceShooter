@@ -9,25 +9,33 @@ var angleChanged = false
 var direction = Vector2(1,1)
 var screen_size
 var velocity = Vector2()
+var player
 
 func _ready():
+	player = find_node_by_name(get_tree().get_root(), "Player")
 	update_screen_size()
 	$Health.value = 100
 	changeAngle()
 	show()
 	$AnimatedSprite.play("default")
+	$Pointer.z_index = 999
 
 func _on_screen_exited():
 	direction.x = direction.x * -1
 	direction.y = direction.y * -1
+	$Pointer.show()
 	print('exited screen! Direction: ' + str(direction))
 
+func _on_Notifier_viewport_entered(viewport):
+	$Pointer.hide()
 	
 func update_screen_size():
 	screen_size = get_viewport().size
 	
 func _physics_process(delta):
 	update_screen_size()
+	
+	$Pointer.position = player.position - Vector2(10,10)
 	
 	if OS.get_time().second % 2 == 0 and !angleChanged:
 		changeAngle()
@@ -73,3 +81,5 @@ func find_node_by_name(root, name):
 			return found
 
 	return null
+
+

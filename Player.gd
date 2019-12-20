@@ -97,7 +97,7 @@ func spawn_target():
 		
 	var targetPrefab = load("res://target.tscn")
 	var targetInstance = targetPrefab.instance()
-	targetInstance.position = Vector2(target_position_X, target_position_Y)
+	targetInstance.get_node("target").position = Vector2(target_position_X, target_position_Y)
 	
 	root.call_deferred("add_child",targetInstance) 
 	targetInstance.show()
