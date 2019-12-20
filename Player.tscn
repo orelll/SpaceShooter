@@ -113,5 +113,3 @@ rotation = 1.5708
 z_index = -1
 frames = SubResource( 4 )
 animation = "move"
-
-[node name="Node2D" type="Node2D" parent="."]

@@ -19,12 +19,18 @@ func _ready():
 	var pos = Vector2(screen_size.x / 2, screen_size.y / 2)
 	start(pos)
 	set_background()
+	set_GUI()
 	spawn_target()
 	
 func set_background():
 	var found = load("res://background.tscn")
 	var backgroundDuplicate = found.instance()
 	root.call_deferred("add_child", backgroundDuplicate)
+
+func set_GUI():
+	var found = load("res://GUI.tscn")
+	var guiDuplicate = found.instance()
+	root.call_deferred("add_child", guiDuplicate)
 
 func start(pos):
     position = pos
