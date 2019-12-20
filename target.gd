@@ -10,24 +10,27 @@ var direction = Vector2(1,1)
 var screen_size
 var velocity = Vector2()
 var player
+var pointer
 
 func _ready():
 	player = find_node_by_name(get_tree().get_root(), "Player")
+	pointer = find_node_by_name(get_tree().get_root(), "Pointer")
 	update_screen_size()
 	$Health.value = 100
 	changeAngle()
 	show()
 	$AnimatedSprite.play("default")
-	$Pointer.z_index = 999
-
-func _on_screen_exited():
+	pointer.z_index = 999
+	pointer.visible = false
+	
+func _on_Notifier_viewport_exited(viewport):
 	direction.x = direction.x * -1
 	direction.y = direction.y * -1
-	$Pointer.show()
+	pointer.visible = true
 	print('exited screen! Direction: ' + str(direction))
 
 func _on_Notifier_viewport_entered(viewport):
-	$Pointer.hide()
+	pointer.visible = false
 	
 func update_screen_size():
 	screen_size = get_viewport().size
@@ -35,21 +38,19 @@ func update_screen_size():
 func _physics_process(delta):
 	update_screen_size()
 	
-	$Pointer.position = player.position - Vector2(10,10)
-	
 	if OS.get_time().second % 2 == 0 and !angleChanged:
 		changeAngle()
 		angleChanged = true
 	if OS.get_time().second % 2 == 1:
 		angleChanged = false
 	ProcessVelocity()
-#	velocity = Vector2(0,0)
-	#print('processing target ' + str(velocity))
+#	
 	var collision = move_and_collide(velocity)
 	
 	if collision != null:
 		changeAngle()
-
+		
+	process_pointer_position()
 
 func ProcessVelocity():
 	velocity = Vector2(sin(angle) * movementSpeed * movementSpeedMultiplier * direction.x, cos(angle) * movementSpeed * movementSpeedMultiplier * direction.y).rotated(rotation)
@@ -57,9 +58,10 @@ func ProcessVelocity():
 func changeAngle():
 	angle = rng.randi_range(0, 360)
 
-func _on_Notifier_viewport_exited(viewport):
-	_on_screen_exited()
-
+func process_pointer_position():
+	var direction_vector = position - player.position
+	print('direction vector = ' + str(direction_vector))
+	pointer.position = player.position + direction_vector.normalized() * Vector2(100,100)
 
 func _on_Health_value_changed(value):
 	print('health changed to: ' + str(value))
