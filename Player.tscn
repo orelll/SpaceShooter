@@ -71,6 +71,7 @@ shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
+smoothing_enabled = true
 
 [node name="Body" type="Sprite" parent="Player"]
 position = Vector2( -6.09067, 1.37284 )

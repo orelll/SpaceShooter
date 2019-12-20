@@ -6,6 +6,7 @@ signal hit
 var speed = 700;
 var velocity
 var screen_size
+var exploded = false
 
 func _ready():
 	screen_size = get_tree().root.size
@@ -18,15 +19,35 @@ func _ready():
 
 func _physics_process(delta):
 	var collision = move_and_collide(velocity*delta)
-	if collision != null:
+	if collision != null  and !exploded:
 		hitSomething(collision.collider)
 
-func hitSomething(area):
-	if area.get_name() == 'target':
-		velocity = Vector2(0,0)
-		$AnimatedSprite.play("explosion")
-		yield($AnimatedSprite, "animation_finished" )
-		queue_free()
+func hitSomething(collider):
+	velocity = Vector2(0,0)
+	if collider.get_name() == 'target':
+		
+		var targetHealth = collider.get_node("Health")
+		targetHealth.value -= damage
+			
+	exploded = true
+	$AnimatedSprite.play("explosion")
+	yield($AnimatedSprite, "animation_finished" )
+	print('my name ' + str(self) + ', parent: ' + str(get_parent()))
+	get_parent().remove_child(self)
+
+func find_node_by_name(root, name):
+	if(root.get_name() == name): 
+		return root
+	
+	for child in root.get_children():
+		if(child.get_name() == name):
+			return child
+
+		var found = find_node_by_name(child, name)
+		if(found): 
+			return found
+
+	return null
 
 func _on_VisibilityNotifier2D_viewport_exited(viewport):
 	queue_free()

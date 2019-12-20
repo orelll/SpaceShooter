@@ -26,7 +26,6 @@ func _ready():
 func set_background():
 	var found = load("res://background.tscn")
 	var backgroundDuplicate = found.instance()
-	print('addind background: ' + str(backgroundDuplicate.name))
 	root.call_deferred("add_child", backgroundDuplicate)
 
 func start(pos):

@@ -35,10 +35,9 @@ radius = 2.38885
 height = 4.9119
 
 [node name="Shot" type="KinematicBody2D"]
-collision_layer = 2
+collision_layer = 4
 collision_mask = 2
 script = ExtResource( 1 )
-damage = 12
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
