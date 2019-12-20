@@ -37,6 +37,7 @@ func get_input():
 	var pressed = 0
 	
 	$Exhaust.play("stop")
+	$ExhaustFront.play("stop")
 	$UpperMover.play("stop")
 	$LowerMover.play("stop")
 	
@@ -44,7 +45,7 @@ func get_input():
 	if Input.is_action_pressed('ui_down'):
 		pressed = 1
 		velocity = Vector2(speed, 0).rotated(rotation)
-		$Exhaust.play("move")
+		$ExhaustFront.play("move")
 	if Input.is_action_pressed('ui_up'):
 		pressed = 1
 		velocity = Vector2(-speed, 0).rotated(rotation)

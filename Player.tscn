@@ -95,6 +95,14 @@ position = Vector2( 37.8479, 4.17775 )
 frames = SubResource( 2 )
 animation = "move"
 
+[node name="ExhaustFront" type="AnimatedSprite" parent="Player"]
+position = Vector2( -39.6355, 1.66205 )
+rotation = 3.14159
+scale = Vector2( 0.7, 0.7 )
+z_index = -1
+frames = SubResource( 2 )
+animation = "move"
+
 [node name="UpperMover" type="AnimatedSprite" parent="Player"]
 position = Vector2( -24.0275, -15.049 )
 rotation = 1.5708
