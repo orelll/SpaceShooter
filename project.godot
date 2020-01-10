@@ -8,15 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "Tools",
+"language": "GDScript",
+"path": "res://tools.gd"
+} ]
 _global_script_class_icons={
-
+"Tools": ""
 }
 
 [application]
 
 config/name="SpaceShooter"
-run/main_scene="res://Player.tscn"
+run/main_scene="res://main_scene.tscn"
 config/icon="res://icon.png"
 
 [display]

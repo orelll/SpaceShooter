@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://Shot.gd" type="Script" id=1]
+[ext_resource path="res://shot.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Shots/Shot1/shot1_1.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Shots/Shot1/shot1_2.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Shots/Shot1/shot1_exp0.png" type="Texture" id=4]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Assets/Shots/Shot1/shot1_3.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Shots/Shot1/shot1_4.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Shots/Shot1/shot1_asset.png" type="Texture" id=11]
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
