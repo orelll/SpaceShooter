@@ -1,7 +1,5 @@
 extends Node2D
 
-var _tools = Tools.new()
-
 func _ready():
 	print('user save is here: ' + str(OS.get_user_data_dir()))
 	prepare_player()
@@ -9,10 +7,10 @@ func _ready():
 #	load_game()
 	
 func prepare_player():
-	var found = _tools.load_scene("Player")
+	var found = load("res://player.tscn")
 	var backgroundDuplicate = found.instance()
-	var root = _tools.get_root(self)
-	_tools.get_root(self).call_deferred("add_child", backgroundDuplicate)
+	var root = get_tree().get_root()
+	root.call_deferred("add_child", backgroundDuplicate)
 
 
 func _notification(what):
@@ -24,7 +22,7 @@ func _notification(what):
 func save_game():
 	var save_game = File.new()
 	save_game.open("user://savegame.save", File.WRITE)
-	var root_children = _tools.get_root(self).get_children()
+	var root_children = get_tree().get_root().get_children()
 	for child in root_children:
 		var save_nodes = child.get_tree().get_nodes_in_group("Persist")
 		for i in save_nodes:

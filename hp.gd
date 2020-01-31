@@ -1,12 +1,19 @@
 extends HBoxContainer
 
-var _tools = Tools.new()
 
 func _ready():
-	var hpGauge = _tools.find_node_by_name(self, "HpGauge")
-	var hpValueText = _tools.find_node_by_name(self, "HpValue")
-	hpValueText.text = str(hpGauge.value)
+	pass
+
+func find_node_by_name(root, name):
+	if(root.get_name() == name): 
+		return root
 	
-func _on_HpGauge_value_changed(value):
-	var hpValueText = _tools.find_node_by_name(self, "HpValue")
-	hpValueText.text = str(value)
+	for child in root.get_children():
+		if(child.get_name() == name):
+			return child
+
+		var found = find_node_by_name(child, name)
+		if(found): 
+			return found
+
+	return null

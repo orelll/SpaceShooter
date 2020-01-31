@@ -7,8 +7,6 @@ var _speed = 700;
 var _velocity
 var _exploded = false
 
-var _tools = Tools.new()
-
 func _ready():
 	rotation = rotation / 2
 	_velocity = Vector2(cos(rotation) * -_speed, sin(rotation) * -_speed).rotated(rotation)

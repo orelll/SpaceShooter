@@ -10,10 +10,10 @@ var _direction = Vector2(1,1)
 var _velocity = Vector2()
 var player
 var pointer
-var _tools = Tools.new()
 
 func _ready():
-	pointer = _tools.find_node_by_name(_tools.get_root(self), "Pointer")
+	var root = get_tree().get_root()
+	pointer = find_node_by_name(root, "Pointer")
 	$Health.value = 100
 	changeAngle()
 	show()
@@ -55,7 +55,8 @@ func changeAngle():
 	_angle = _rng.randi_range(0, 360)
 
 func process_pointer_position():
-	var player = _tools.get_player(self)
+	var root = get_tree().get_root()
+	var player = find_node_by_name(root,"Player")
 	if player.position == null:
 		pass
 	
@@ -64,6 +65,22 @@ func process_pointer_position():
 
 func _on_Health_value_changed(value):
 	if $Health.value <= 0:
-		var player = _tools.find_node_by_name(_tools.get_root(self), _tools.get_player())
+		var root = get_tree().get_root()
+		
+		var player = find_node_by_name(root, "Player")
 		player.spawn_target()
 		get_parent().remove_child(self)
+		
+func find_node_by_name(root, name):
+	if(root.get_name() == name): 
+		return root
+	
+	for child in root.get_children():
+		if(child.get_name() == name):
+			return child
+
+		var found = find_node_by_name(child, name)
+		if(found): 
+			return found
+
+	return null

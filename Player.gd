@@ -10,14 +10,12 @@ var _rotation_dir = 0
 var _readyToShot = 1
 var _rng = RandomNumberGenerator.new()
 
-var _tools = Tools.new()
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
 	get_tree().set_auto_accept_quit(false)
 	hide()
-	start(_tools.viewport_size(self)/2)
+	start(get_tree().get_root().get_viewport().size/2)
 	set_background()
 	set_GUI()
 	spawn_target()
@@ -32,17 +30,17 @@ func get_save():
 	return save_dict
 
 func set_background():
-	var found = _tools.load_scene("background")
+	var found = load("res://background.tscn")
 	var backgroundDuplicate = found.instance()
-	_tools.get_root(self).call_deferred("add_child", backgroundDuplicate)
+	var root = get_tree().get_root()
+	root.call_deferred("add_child", backgroundDuplicate)
 
 func set_GUI():
 	var found = load("res://GUI.tscn")
 	var guiDuplicate = found.instance()
-	var hpGauge = _tools.find_node_by_name(guiDuplicate, "HpGauge")
-	hpGauge.value = HP
+
 	
-	_tools.find_node_by_name(self, "CanvasLayer").call_deferred("add_child", guiDuplicate)
+	find_node_by_name(self, "CanvasLayer").call_deferred("add_child", guiDuplicate)
 
 func start(pos):
     position = pos
@@ -99,11 +97,12 @@ func _physics_process(delta):
 	_velocity = move_and_slide(_velocity)
 	
 func shot():
-	var found = _tools.load_scene("Shot")
+	var found = load("res://shot.tscn")
 	var shotDuplicate = found.instance()
 	shotDuplicate.position = position
 	shotDuplicate.rotation = rotation
-	_tools.get_root(self).add_child(shotDuplicate)
+	var root  = get_tree().get_root()
+	root.add_child(shotDuplicate)
 	shotDuplicate.show()
 
 func spawn_target():
@@ -113,14 +112,28 @@ func spawn_target():
 	target_position_X += position.x
 	target_position_Y += position.y
 	
-	var viewport_size = _tools.viewport_size(self)
+	var root  = get_tree().get_root()
+	var viewport_size = root.get_viewport().size
 	target_position_X = clamp(target_position_X, 0, viewport_size.x)
 	target_position_Y = clamp(target_position_Y, 0, viewport_size.y)
-	var _root = _tools.get_root(self)
 		
-	var targetPrefab = _tools.load_scene("target")
+	var targetPrefab = load("res://target.tscn")
 	var targetInstance = targetPrefab.instance()
 	targetInstance.get_node("target").position = Vector2(target_position_X, target_position_Y)
 	
-	_root.call_deferred("add_child",targetInstance) 
+	root.call_deferred("add_child",targetInstance) 
 	targetInstance.show()
+	
+func find_node_by_name(root, name):
+	if(root.get_name() == name): 
+		return root
+	
+	for child in root.get_children():
+		if(child.get_name() == name):
+			return child
+
+		var found = find_node_by_name(child, name)
+		if(found): 
+			return found
+
+	return null
