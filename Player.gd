@@ -37,12 +37,12 @@ func set_background():
 	_tools.get_root(self).call_deferred("add_child", backgroundDuplicate)
 
 func set_GUI():
-	var found = _tools.load_scene("GUI")
+	var found = load("res://GUI.tscn")
 	var guiDuplicate = found.instance()
 	var hpGauge = _tools.find_node_by_name(guiDuplicate, "HpGauge")
 	hpGauge.value = HP
 	
-	_tools.find_node_by_name(_tools.get_root(self), "CanvasLayer").call_deferred("add_child", guiDuplicate)
+	_tools.find_node_by_name(self, "CanvasLayer").call_deferred("add_child", guiDuplicate)
 
 func start(pos):
     position = pos

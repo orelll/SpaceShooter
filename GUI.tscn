@@ -10,18 +10,13 @@
 [ext_resource path="res://Assets/GUI/xp_bar_bg.png" type="Texture" id=8]
 [ext_resource path="res://Assets/GUI/xp_bar_fill.png" type="Texture" id=9]
 
-
-
 [sub_resource type="DynamicFont" id=1]
 size = 25
 extra_spacing_bottom = -3
 font_data = ExtResource( 4 )
 
 [node name="GUI" type="MarginContainer"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -700.0
-margin_right = 700.0
+anchor_right = 1.0
 margin_bottom = 53.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -69,6 +64,7 @@ texture_under = ExtResource( 5 )
 texture_progress = ExtResource( 6 )
 
 [node name="XP" type="HBoxContainer" parent="HBoxContainer"]
+editor/display_folded = true
 margin_left = 504.0
 margin_right = 1004.0
 margin_bottom = 53.0
