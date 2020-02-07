@@ -12,7 +12,6 @@
 [ext_resource path="res://Assets/Shots/Shot1/shot1_4.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Shots/Shot1/shot1_asset.png" type="Texture" id=11]
 
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ) ],

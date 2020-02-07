@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/GOLD.png-62e7c1880c108530e0d81310e24e67a4.stex"
+path="res://.import/XP_label.png-8fbf9a87272d942ae0811299729defda.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/GUI/GOLD.png"
-dest_files=[ "res://.import/GOLD.png-62e7c1880c108530e0d81310e24e67a4.stex" ]
+source_file="res://Assets/GUI/XP_label.png"
+dest_files=[ "res://.import/XP_label.png-8fbf9a87272d942ae0811299729defda.stex" ]
 
 [params]
 

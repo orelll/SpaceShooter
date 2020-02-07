@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/label_EP.png-fa91906474f879ecdcde874ac48f7748.stex"
+path="res://.import/ENERGY_label.png-1a1f11b8eb3467c29d4e2a4d040dbde1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/GUI/label_EP.png"
-dest_files=[ "res://.import/label_EP.png-fa91906474f879ecdcde874ac48f7748.stex" ]
+source_file="res://Assets/GUI/ENERGY_label.png"
+dest_files=[ "res://.import/ENERGY_label.png-1a1f11b8eb3467c29d4e2a4d040dbde1.stex" ]
 
 [params]
 

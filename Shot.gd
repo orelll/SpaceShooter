@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 export var startRotation = Vector2()
 export var damage = 10
+export var energy_cost = 1
 signal hit
 var _speed = 700;
 var _velocity

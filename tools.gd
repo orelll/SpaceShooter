@@ -24,7 +24,6 @@ func get_player(node):
 	
 func load_scene(scene_name):
 	var stringText = "res://" + scene_name + ".tscn"
-	print('loading scene: ' + stringText)
 	var found = load(stringText)
 	return found
 	

@@ -3,6 +3,9 @@ extends HBoxContainer
 var _tools = Tools.new()
 
 func _ready():
-	var xpGauge = _tools.find_node_by_name(self, "XPGauge")
-	var xpValueText = _tools.find_node_by_name(self, "XPValue")
-	xpValueText.text = str(xpGauge.value)
+	var player =  _tools.get_player(self)
+	player.change_xp(0)
+
+func _on_XPGauge_value_changed(value):
+	$XPGauge.value = value
+	$Container/Background/XPValue.text = str(value)
