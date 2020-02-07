@@ -13,16 +13,14 @@ extra_spacing_bottom = -3
 font_data = ExtResource( 4 )
 
 [node name="GUI" type="MarginContainer"]
-editor/display_folded = true
 anchor_right = 1.0
 margin_bottom = 53.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_right = 1508.0
+margin_right = 1400.0
 margin_bottom = 53.0
 
 [node name="Energy" type="HBoxContainer" parent="HBoxContainer"]
-editor/display_folded = true
 margin_right = 500.0
 margin_bottom = 53.0
 script = ExtResource( 1 )
@@ -51,9 +49,9 @@ stretch_mode = 4
 [node name="EnergyValue" type="Label" parent="HBoxContainer/Energy/Container/Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -5.0
+margin_right = -10.0
 custom_fonts/font = SubResource( 1 )
-text = "10"
+text = "100"
 align = 2
 valign = 1
 

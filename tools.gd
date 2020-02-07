@@ -16,11 +16,12 @@ func find_node_by_name(root, name):
 	return null
 
 func get_root(node):
-	var root = node.get_tree().get_root()
-	return root
+#	root można wywołać przez get_tree().get_root()
+	return null
 	
 func get_player(node):
-	return find_node_by_name(get_root(node), "Player")
+#	nazwa playera to "Player"
+	return null
 	
 func load_scene(scene_name):
 	var stringText = "res://" + scene_name + ".tscn"

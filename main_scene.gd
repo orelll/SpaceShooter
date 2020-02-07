@@ -5,8 +5,6 @@ var _tools = Tools.new()
 func _ready():
 	print('user save is here: ' + str(OS.get_user_data_dir()))
 	prepare_player()
-#	save_game()
-#	load_game()
 	
 func prepare_player():
 	var found = _tools.load_scene("Player")
