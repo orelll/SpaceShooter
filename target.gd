@@ -3,12 +3,12 @@ extends KinematicBody2D
 export var movementSpeed = 1
 var movementSpeedMultiplier = 2
 
+var _xp_value = 10
 var _rng = RandomNumberGenerator.new()
 var _angle 
 var _angleChanged = false
 var _direction = Vector2(1,1)
 var _velocity = Vector2()
-var player
 var pointer
 var _tools = Tools.new()
 
@@ -65,5 +65,6 @@ func process_pointer_position():
 func _on_Health_value_changed(value):
 	if $Health.value <= 0:
 		var player = _tools.find_node_by_name(_tools.get_root(self), _tools.get_player())
+#		wywołaj change xp w playerze
 		player.spawn_target()
 		get_parent().remove_child(self)

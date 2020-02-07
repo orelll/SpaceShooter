@@ -9,7 +9,7 @@ export (int) var energy_max = 100
 export (int) var energy_restore_speed = 1
 export (float) var rotation_speed = 1
 var recover_timer
-var disabler_timer
+var enabler_timer
 
 var _gun_in_use = false
 var _velocity = Vector2()
@@ -21,8 +21,9 @@ var _tools = Tools.new()
 
 func _ready():
 	
-	prepare_recovery_timer()
-	prepare_disabler_timer()
+#	stwórz funkcję dla przygotowania enabler_timer
+#	stwórz funkcję dla przygotowania recover_timer
+
 	get_tree().set_auto_accept_quit(false)
 	hide()
 	start(_tools.viewport_size(self)/2)
@@ -30,44 +31,6 @@ func _ready():
 	spawn_target()
 	set_GUI()
 
-func prepare_disabler_timer():
-	disabler_timer = Timer.new()
-	disabler_timer.set_one_shot(true)
-	disabler_timer.set_timer_process_mode(0)
-	disabler_timer.set_wait_time(3)
-	disabler_timer.connect("timeout", self, "_enabler_timer_callback")
-	disabler_timer.start()
-	call_deferred("add_child", disabler_timer)
-	
-func _enabler_timer_callback():
-	print('enabling recovery!')
-	_gun_in_use = false
-
-func prepare_recovery_timer():
-	recover_timer = Timer.new()
-	recover_timer.set_one_shot(false)
-	recover_timer.set_timer_process_mode(0)
-	recover_timer.set_wait_time(0.25)
-	recover_timer.connect("timeout", self, "_recovery_timer_callback")
-	recover_timer.start()
-	call_deferred("add_child", recover_timer)
-	
-func _recovery_timer_callback():
-	if !_gun_in_use and energy < energy_max:
-		if energy + energy_restore_speed > energy_max:
-			energy = energy_max
-		else:
-			energy += energy_restore_speed
-		change_energy(energy, true)
-
-func get_save():
-	var save_dict = {
-		"filename" : get_filename(),
-		"parent" : get_parent().get_path(),
-		"xp" : xp,
-		"hp" : hp
-	}
-	return save_dict
 
 func set_background():
 	var found = _tools.load_scene("background")
@@ -136,18 +99,19 @@ func _physics_process(delta):
 	_velocity = move_and_slide(_velocity)
 	
 func shot():
-	_gun_in_use = true
-	disabler_timer.stop()
+#	ustaw _gun_in_use
+#	zatrzymaj  timer. który?
 	var found = _tools.load_scene("Shot")
 	var shotDuplicate = found.instance()
 	
-	if energy - shotDuplicate.energy_cost> 0:
-		shotDuplicate.position = position
-		shotDuplicate.rotation = rotation
-		_tools.get_root(self).add_child(shotDuplicate)
-		shotDuplicate.show()
-		change_energy(-shotDuplicate.energy_cost)
-	disabler_timer.start()
+#	sprawdź czy masz dość energii
+	shotDuplicate.position = position
+	shotDuplicate.rotation = rotation
+	_tools.get_root(self).add_child(shotDuplicate)
+	shotDuplicate.show()
+	change_energy(-shotDuplicate.energy_cost)
+		
+#	uruchom zatrzymany timer
 
 func spawn_target():
 	var target_position_X = _rng.randi_range(100, 250)
@@ -168,26 +132,6 @@ func spawn_target():
 	_root.call_deferred("add_child",targetInstance) 
 	targetInstance.show()
 
-func change_hp(delta, override = false):
-	if override:
-		hp = delta
-	else:
-		hp += delta
-	var hpGauge = _tools.find_node_by_name(_tools.get_root(self), "HpGauge")
-	hpGauge.value = hp
-
-func change_xp(delta, override = false):
-	if override:
-		xp = delta
-	else:
-		xp += delta
-	var xpGauge = _tools.find_node_by_name(_tools.get_root(self), "XPGauge")
-	xpGauge.value = xp
-
 func change_energy(delta, override = false):
-	if override:
-		energy = delta
-	else:
-		energy += delta
-	var energyGauge =  _tools.find_node_by_name(_tools.get_root(self), "EnergyGauge")
-	energyGauge.value = energy
+#	sprawdź czy jest override, ustaw wartość i wywołaj value na danym gauge
+	pass

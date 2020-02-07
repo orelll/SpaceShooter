@@ -1,19 +1,11 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://hp.gd" type="Script" id=1]
+[ext_resource path="res://energy.gd" type="Script" id=1]
 [ext_resource path="res://Assets/GUI/label_HP_bg.png" type="Texture" id=2]
-[ext_resource path="res://Assets/GUI/HP_label.png" type="Texture" id=3]
+[ext_resource path="res://Assets/GUI/ENERGY_label.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Fonts/Comfortaa-Bold.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://Assets/GUI/lifebar_bg.png" type="Texture" id=5]
-[ext_resource path="res://Assets/GUI/lifebar_fill.png" type="Texture" id=6]
-[ext_resource path="res://xp.gd" type="Script" id=7]
-[ext_resource path="res://Assets/GUI/XP_label.png" type="Texture" id=8]
-[ext_resource path="res://Assets/GUI/xp_bar_bg.png" type="Texture" id=9]
-[ext_resource path="res://Assets/GUI/xp_bar_fill.png" type="Texture" id=10]
-[ext_resource path="res://energy.gd" type="Script" id=11]
-[ext_resource path="res://Assets/GUI/ENERGY_label.png" type="Texture" id=12]
-[ext_resource path="res://Assets/GUI/energy_bar_bg.png" type="Texture" id=13]
-[ext_resource path="res://Assets/GUI/energy_bar_fill.png" type="Texture" id=14]
+[ext_resource path="res://Assets/GUI/energy_bar_bg.png" type="Texture" id=5]
+[ext_resource path="res://Assets/GUI/energy_bar_fill.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 25
@@ -26,101 +18,14 @@ anchor_right = 1.0
 margin_bottom = 53.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-editor/display_folded = true
 margin_right = 1508.0
 margin_bottom = 53.0
 
-[node name="HP" type="HBoxContainer" parent="HBoxContainer"]
+[node name="Energy" type="HBoxContainer" parent="HBoxContainer"]
+editor/display_folded = true
 margin_right = 500.0
 margin_bottom = 53.0
 script = ExtResource( 1 )
-
-[node name="Container" type="MarginContainer" parent="HBoxContainer/HP"]
-margin_right = 100.0
-margin_bottom = 53.0
-rect_min_size = Vector2( 100, 0 )
-
-[node name="Background" type="NinePatchRect" parent="HBoxContainer/HP/Container"]
-margin_right = 100.0
-margin_bottom = 53.0
-rect_min_size = Vector2( 80, 40 )
-texture = ExtResource( 2 )
-
-[node name="Title" type="TextureRect" parent="HBoxContainer/HP/Container/Background"]
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_right = 117.0
-margin_bottom = 54.0
-rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
-stretch_mode = 4
-
-[node name="HpValue" type="Label" parent="HBoxContainer/HP/Container/Background"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -5.0
-custom_fonts/font = SubResource( 1 )
-text = "10"
-align = 2
-valign = 1
-
-[node name="HpGauge" type="TextureProgress" parent="HBoxContainer/HP"]
-margin_left = 104.0
-margin_right = 500.0
-margin_bottom = 53.0
-value = 10.0
-texture_under = ExtResource( 5 )
-texture_progress = ExtResource( 6 )
-
-[node name="XP" type="HBoxContainer" parent="HBoxContainer"]
-margin_left = 504.0
-margin_right = 1004.0
-margin_bottom = 53.0
-script = ExtResource( 7 )
-
-[node name="Container" type="MarginContainer" parent="HBoxContainer/XP"]
-margin_right = 100.0
-margin_bottom = 53.0
-rect_min_size = Vector2( 80, 0 )
-
-[node name="Background" type="NinePatchRect" parent="HBoxContainer/XP/Container"]
-margin_right = 100.0
-margin_bottom = 53.0
-rect_min_size = Vector2( 100, 40 )
-texture = ExtResource( 2 )
-
-[node name="Title" type="TextureRect" parent="HBoxContainer/XP/Container/Background"]
-anchor_bottom = 1.0
-margin_left = 8.67462
-margin_top = 4.22487
-margin_right = 123.675
-margin_bottom = 39.2249
-rect_scale = Vector2( 0.439945, 0.5 )
-texture = ExtResource( 8 )
-stretch_mode = 1
-
-[node name="XPValue" type="Label" parent="HBoxContainer/XP/Container/Background"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -5.0
-custom_fonts/font = SubResource( 1 )
-text = "10"
-align = 2
-valign = 1
-
-[node name="XPGauge" type="TextureProgress" parent="HBoxContainer/XP"]
-margin_left = 104.0
-margin_right = 500.0
-margin_bottom = 53.0
-value = 10.0
-texture_under = ExtResource( 9 )
-texture_progress = ExtResource( 10 )
-
-[node name="Energy" type="HBoxContainer" parent="HBoxContainer"]
-margin_left = 1008.0
-margin_right = 1508.0
-margin_bottom = 53.0
-script = ExtResource( 11 )
 
 [node name="Container" type="MarginContainer" parent="HBoxContainer/Energy"]
 margin_right = 100.0
@@ -140,7 +45,7 @@ margin_top = 3.92282
 margin_right = 103.242
 margin_bottom = 46.9228
 rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 12 )
+texture = ExtResource( 3 )
 stretch_mode = 4
 
 [node name="EnergyValue" type="Label" parent="HBoxContainer/Energy/Container/Background"]
@@ -157,8 +62,6 @@ margin_left = 104.0
 margin_right = 500.0
 margin_bottom = 53.0
 value = 10.0
-texture_under = ExtResource( 13 )
-texture_progress = ExtResource( 14 )
-[connection signal="value_changed" from="HBoxContainer/HP/HpGauge" to="HBoxContainer/HP" method="_on_HpGauge_value_changed"]
-[connection signal="value_changed" from="HBoxContainer/XP/XPGauge" to="HBoxContainer/XP" method="_on_XPGauge_value_changed"]
+texture_under = ExtResource( 5 )
+texture_progress = ExtResource( 6 )
 [connection signal="value_changed" from="HBoxContainer/Energy/EnergyGauge" to="HBoxContainer/Energy" method="_on_EnergyGauge_value_changed"]
